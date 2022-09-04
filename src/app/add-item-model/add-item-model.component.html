@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Add Item</h4>
+        <div class="alert alert-primary alert-dismissible fade show" role="alert"
+         *ngIf= "formSubmitted">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <strong>Item added successfully!</strong>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form novalidate [formGroup]= "itemForm">
+                    <div class="form-group">
+                      <label>Item Name</label>
+                      <input type="text" formControlName="itemName" class="form-control" 
+                      placeholder="" aria-describedby="helpId"
+                      [ngClass]= "{'is-invalid' : itemName.errors 
+                      && (itemName.touched || itemName.dirty),
+                      'is-valid':itemName.valid}" >
+                      <div class="invalid-feedback">
+                        <strong *ngIf= "itemName.errors?.['required']">
+                            Item Name is Mandatory
+                        </strong>
+                        <strong *ngIf= "itemName.errors?.['minLength']">
+                            Item Name length should be greater than 
+                            {{ itemName.errors?.['minLength'].requiredLength}} Character.
+                            {{ itemName.errors?.['minLength'].requiredLength - 
+                            itemName.errors?.['minLength'].actualLength }} more characters required
+                        </strong>    
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Item Category</label>
+                        <input type="text" formControlName="itemCategory" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                    <div class="form-group">
+                        <label>Item Price</label>
+                        <input type="number" formControlName="itemPrice" class="form-control" placeholder="" aria-describedby="helpId">
+                        <div class="alert alert-danger" role="alert"
+                        *ngIf= "itemPrice.errors && (itemPrice.touched || itemPrice.dirty) ">
+                           Invalid itemPrice
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Item Weight</label>
+                        <input type="number" formControlName="itemWeight" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                    <button type="button" 
+                    [disabled]= "itemForm.invalid"    
+                    (click)= "addItem(itemForm.value)" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-default"
+                    (click)= "itemForm.reset()">Reset</button>
+
+                </form>
+            </div>
+            <div class="col-md-6">
+                <label>
+                    <strong>itemForm : JSON</strong>
+                </label>
+                <pre class="alert alert-dark">{{itemForm.value | json}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

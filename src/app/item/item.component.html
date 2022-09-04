@@ -1,0 +1,26 @@
+<div class="card text-white bg-secondary">
+  <div class="card-body">
+    <h4 class="card-title">{{item.itemName}}</h4>
+    <h5 class="card-text">{{item.itemPrice | currency:'INR'}}</h5>
+  </div>
+  <table class="table">
+       <tr>
+            <td scope="row">
+                <b>Item Category</b>
+            </td>
+            <td>
+                <i *ngIf="item.itemCategory == 'Rice'">Rice</i>
+                <i *ngIf="item.itemCategory == 'Oil'">Oil</i>
+            </td>
+       </tr>
+       <tr>
+        <td scope="row">
+            <b>Item Price</b>
+        </td>
+        <td>{{item.itemPrice}}</td>
+       </tr>
+  </table>
+  <div class="card-footer text-muted">
+    <button type="button" class="btn btn-danger" (click)= "delete()">Remove</button>
+  </div>
+</div>
